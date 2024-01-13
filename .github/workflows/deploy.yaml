@@ -9,7 +9,7 @@ jobs:
   spellcheck:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4.1.1
+    - uses: actions/checkout@v4
     - uses: rojopolis/spellcheck-github-actions@0.35.0
       name: Spellcheck
       with:
