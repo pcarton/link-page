@@ -1,0 +1,25 @@
+baseURL = 'https://patrickcarton.info/'
+languageCode = 'en-us'
+title = 'Patrick Carton'
+theme = 'lynx'
+
+enableEmoji = true
+disableKinds = ["taxonomy", "term"]
+
+[params.author]
+  name = "Patrick Carton"
+  headline = "SRE and Hobbyist Nerd"
+  image = "author.png"
+  links = [
+    { email = "mailto:patrick@patrickcarton.info" },
+    { twitter = "https://twitter.com/p_carton" },
+    { github = "https://github.com/pcarton" },
+    { link = { href = "https://cartonof.tech/", text = "CartonOf.tech" } },
+  ]
+
+[markup.highlight]
+  noClasses = false
+
+[markup.goldmark]
+[markup.goldmark.renderer]
+  unsafe = true

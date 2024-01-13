@@ -1,0 +1,30 @@
+matrix:
+- name: Markdown
+  aspell:
+    lang: en
+  dictionary:
+    wordlists:
+    - .github/wordlist.txt
+    encoding: utf-8
+  pipeline:
+  # See all markdown extensions here: https://python-markdown.github.io/extensions/
+  - pyspelling.filters.markdown:
+      markdown_extensions:
+      - markdown.extensions.extra:
+      - markdown.extensions.meta
+  - pyspelling.filters.html:
+      comments: false
+      ignores:
+      - ':matches(code,pre)'
+      - 'code'
+      - 'pre'
+      - 'blockquote'
+  - pyspelling.filters.context:
+      context_visible_first: true
+      escapes: \\[\\`~]
+      delimiters:
+      - open: '(?P<open> *\${2})'
+        close: '(?P=open)'
+  sources:
+  - 'hugo/content/**/*.md'
+  default_encoding: utf-8

@@ -1,0 +1,49 @@
+name: build and deploy Carton of Tech
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.1
+    - uses: rojopolis/spellcheck-github-actions@0.35.0
+      name: Spellcheck
+      with:
+        config_path: .github/spellcheck.yml
+  make-new-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'write'
+      pull-requests: 'read'
+      id-token: 'write'
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      version: ${{ steps.bump_release.outputs.version }}
+    steps:
+    - id: bump_release
+      name: Bump Release
+      uses: rymndhng/release-on-push-action@v0.28.0
+      with:
+        bump_version_scheme: ${{ github.actor == 'dependabot[bot]' && 'patch' || 'minor'  }}
+        dry_run: false
+        tag_prefix: 'v'
+
+  us-central1:
+    uses: pcarton/github-actions/.github/workflows/hugo-site-build-and-deploy.yaml@v0.1.4
+    with:
+      google_region: "us-central1"
+      google_artifact_registry: ${{ vars.GOOGLE_ARTIFACT_REGISTRY }}
+      image_name: "linkpage"
+      image_tag: ${{ needs.make-new-release.outputs.version }}
+      cloud_run_service_account: ${{ vars.CLOUD_RUN_SERVICE_ACCOUNT }}
+      max_instances: "3"
+      workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+      workload_identity_service_account: ${{ vars.GOOGLE_GHA_SERVICE_ACCOUNT }}
+    secrets:
+      input_github_token: ${{ secrets.GITHUB_TOKEN }}
+    needs: [make-new-release,spellcheck]
