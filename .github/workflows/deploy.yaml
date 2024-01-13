@@ -38,4 +38,4 @@ jobs:
       workload_identity_service_account: ${{ vars.GOOGLE_GHA_SERVICE_ACCOUNT }}
     secrets:
       input_github_token: ${{ secrets.GITHUB_TOKEN }}
-    needs: [make-new-release,spellcheck]
+    needs: [make-new-release]
