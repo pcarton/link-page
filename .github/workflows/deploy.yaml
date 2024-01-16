@@ -47,6 +47,4 @@ jobs:
       max_instances: "3"
       workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
       workload_identity_service_account: ${{ vars.GOOGLE_GHA_SERVICE_ACCOUNT }}
-    secrets:
-      input_github_token: ${{ secrets.GITHUB_TOKEN }}
     needs: [dockerize]
