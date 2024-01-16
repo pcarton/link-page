@@ -37,8 +37,8 @@ jobs:
       input_github_token: ${{ secrets.GITHUB_TOKEN }}
     needs: [make-new-release]
 
-  dockerize:
-    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.2.0
+  us-central1:
+    uses: pcarton/github-actions/.github/workflows/deploy-to-cloudrun.yaml@v0.2.0
     with:
       google_region: "us-central1"
       service_name: "linkpage"
