@@ -25,17 +25,28 @@ jobs:
         dry_run: false
         tag_prefix: 'v'
 
-  us-central1:
-    uses: pcarton/github-actions/.github/workflows/hugo-site-build-and-deploy.yaml@v0.1.4
+  dockerize:
+    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.2.0
     with:
-      google_region: "us-central1"
       google_artifact_registry: ${{ vars.GOOGLE_ARTIFACT_REGISTRY }}
       image_name: "linkpage"
       image_tag: ${{ needs.make-new-release.outputs.version }}
+      workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+      workload_identity_service_account: ${{ vars.GOOGLE_GHA_SERVICE_ACCOUNT }}
+    secrets:
+      input_github_token: ${{ secrets.GITHUB_TOKEN }}
+    needs: [make-new-release]
+
+  dockerize:
+    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.2.0
+    with:
+      google_region: "us-central1"
+      service_name: "linkpage"
+      image: ${{ needs.dockerize.outputs.image }}
       cloud_run_service_account: ${{ vars.CLOUD_RUN_SERVICE_ACCOUNT }}
       max_instances: "3"
       workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
       workload_identity_service_account: ${{ vars.GOOGLE_GHA_SERVICE_ACCOUNT }}
     secrets:
       input_github_token: ${{ secrets.GITHUB_TOKEN }}
-    needs: [make-new-release]
+    needs: [dockerize]
