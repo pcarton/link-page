@@ -26,7 +26,7 @@ jobs:
         tag_prefix: 'v'
 
   dockerize:
-    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.2.3
+    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.2.4
     with:
       google_artifact_registry: ${{ vars.GOOGLE_ARTIFACT_REGISTRY }}
       image_name: "linkpage"
@@ -38,7 +38,7 @@ jobs:
     needs: [make-new-release]
 
   us-central1:
-    uses: pcarton/github-actions/.github/workflows/deploy-to-cloudrun.yaml@v0.2.3
+    uses: pcarton/github-actions/.github/workflows/deploy-to-cloudrun.yaml@v0.2.4
     with:
       google_region: "us-central1"
       service_name: "linkpage"
