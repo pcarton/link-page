@@ -6,39 +6,25 @@ on:
       - main
 
 jobs:
-  make-new-release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: 'write'
-      pull-requests: 'read'
-      id-token: 'write'
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    outputs:
-      version: ${{ steps.bump_release.outputs.version }}
-    steps:
-    - id: bump_release
-      name: Bump Release
-      uses: rymndhng/release-on-push-action@v0.28.0
-      with:
-        bump_version_scheme: ${{ github.actor == 'dependabot[bot]' && 'patch' || 'minor'  }}
-        dry_run: false
-        tag_prefix: 'v'
+  create-release:
+    uses: pcarton/github-actions/.github/workflows/make-release.yaml@v0.5.1
+    secrets:
+      input_github_token: ${{ secrets.GITHUB_TOKEN }}
 
   dockerize:
-    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.2.4
+    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.5.1
     with:
       google_artifact_registry: ${{ vars.GOOGLE_ARTIFACT_REGISTRY }}
       image_name: "linkpage"
-      image_tag: ${{ needs.make-new-release.outputs.version }}
+      image_tag: ${{ needs.create-release.outputs.version }}
       workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
       workload_identity_service_account: ${{ vars.GOOGLE_GHA_SERVICE_ACCOUNT }}
     secrets:
       input_github_token: ${{ secrets.GITHUB_TOKEN }}
-    needs: [make-new-release]
+    needs: [create-release]
 
   us-central1:
-    uses: pcarton/github-actions/.github/workflows/deploy-to-cloudrun.yaml@v0.2.4
+    uses: pcarton/github-actions/.github/workflows/deploy-to-cloudrun.yaml@v0.5.1
     with:
       google_region: "us-central1"
       service_name: "linkpage"
