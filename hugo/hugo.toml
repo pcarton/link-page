@@ -6,6 +6,9 @@ theme = 'lynx'
 enableEmoji = true
 disableKinds = ["taxonomy", "term"]
 
+[imaging]
+  anchor = "Center"
+
 [params.author]
   name = "Patrick Carton"
   headline = "SRE and Hobbyist Nerd"
