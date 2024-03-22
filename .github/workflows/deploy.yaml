@@ -17,6 +17,7 @@ jobs:
       google_artifact_registry: ${{ vars.GOOGLE_ARTIFACT_REGISTRY }}
       image_name: "linkpage"
       image_tag: ${{ needs.create-release.outputs.version }}
+      build_config_path: './build-config.json'
       workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
       workload_identity_service_account: ${{ vars.GOOGLE_GHA_SERVICE_ACCOUNT }}
     secrets:
