@@ -6,15 +6,10 @@ on:
       - '!main'
 
 jobs:
-  validate_docker_build:
-    name: Validate Docker Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the Repo
-        uses: actions/checkout@v4.1.2
-      - name: Build Docker Image
-        uses: docker/build-push-action@v5.3.0
-        with:
-          context: .
-          file: ./Dockerfile
-          push: false
+  test_docker_build:
+    uses: pcarton/github-actions/.github/workflows/validate-docker-build.yaml@v0.7.0
+    with:
+      dockerfile_path: './Dockerfile'
+      docker_build_context: '.'
+    secrets:
+      input_github_token: ${{ secrets.GITHUB_TOKEN }}
