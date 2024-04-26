@@ -7,7 +7,7 @@ on:
 
 jobs:
   test_docker_build:
-    uses: pcarton/github-actions/.github/workflows/validate-docker-build.yaml@v0.7.0
+    uses: pcarton/github-actions/.github/workflows/validate-docker-build.yaml@v0.7.2
     with:
       dockerfile_path: './Dockerfile'
       docker_build_context: '.'
