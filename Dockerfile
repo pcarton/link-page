@@ -1,4 +1,4 @@
-FROM archlinux:base-20240101.0.204074 as build
+FROM archlinux:base-20240714.0.246936 as build
 WORKDIR /build
 ENV HUGO_ENV="production"
 RUN pacman -Syyu --noconfirm gcc-libs hugo
