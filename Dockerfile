@@ -1,4 +1,4 @@
-FROM nixos/nix:2.24.1 as build
+FROM nixos/nix:2.24.4 as build
 
 WORKDIR /build
 ENV HUGO_ENV="production"
