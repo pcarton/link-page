@@ -7,12 +7,12 @@ on:
 
 jobs:
   create-release:
-    uses: pcarton/github-actions/.github/workflows/make-release.yaml@v0.11.13
+    uses: pcarton/github-actions/.github/workflows/make-release.yaml@v0.11.16
     secrets:
       input_github_token: ${{ secrets.GITHUB_TOKEN }}
 
   dockerize:
-    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.11.13
+    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.11.16
     with:
       google_artifact_registry: ${{ vars.GOOGLE_ARTIFACT_REGISTRY }}
       image_name: "linkpage"
@@ -25,7 +25,7 @@ jobs:
     needs: [create-release]
 
   us-central1:
-    uses: pcarton/github-actions/.github/workflows/deploy-to-cloudrun.yaml@v0.11.13
+    uses: pcarton/github-actions/.github/workflows/deploy-to-cloudrun.yaml@v0.11.16
     with:
       google_region: "us-central1"
       service_name: "linkpage"
