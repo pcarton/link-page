@@ -9,7 +9,7 @@ RUN nix-env -iA nixpkgs.hugo
 COPY hugo /build 
 RUN hugo -d /link-page
 
-FROM httpd:2.4.62-alpine
+FROM httpd:2.4.63-alpine
 COPY --from=build /link-page/ /usr/local/apache2/htdocs/
 COPY ./my-httpd.conf /usr/local/apache2/conf/httpd.conf
 RUN adduser -D httpd
