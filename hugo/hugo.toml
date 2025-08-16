@@ -15,8 +15,8 @@ disableKinds = ["taxonomy", "term"]
   image = "author.png"
   links = [
     { email = "mailto:patrick@patrickcarton.info" },
-    { twitter = "https://twitter.com/p_carton" },
     { github = "https://github.com/pcarton" },
+    { linkedin = "https://linkedin.com/in/patrickdcarton" },
     { link = { href = "https://cartonof.tech/", text = "CartonOf.tech" } },
   ]
 
