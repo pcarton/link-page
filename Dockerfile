@@ -1,4 +1,4 @@
-FROM nixos/nix:2.30.2 AS build
+FROM nixos/nix:2.32.4 AS build
 
 WORKDIR /build
 ENV HUGO_ENV="production"
@@ -9,7 +9,7 @@ RUN nix-env -iA nixpkgs.hugo
 COPY hugo /build
 RUN hugo -d /link-page
 
-FROM httpd:2.4.65-alpine
+FROM httpd:2.4.66-alpine
 COPY --from=build /link-page/ /usr/local/apache2/htdocs/
 COPY ./my-httpd.conf /usr/local/apache2/conf/httpd.conf
 RUN adduser -D httpd
