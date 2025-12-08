@@ -12,7 +12,7 @@ jobs:
       input_github_token: ${{ secrets.GITHUB_TOKEN }}
 
   dockerize:
-    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.13.10
+    uses: pcarton/github-actions/.github/workflows/docker-to-gar.yaml@v0.13.11
     with:
       google_artifact_registry: ${{ vars.GOOGLE_ARTIFACT_REGISTRY }}
       image_name: "linkpage"
