@@ -1,4 +1,4 @@
-name: build and deploy Carton of Tech
+name: build and deploy link-page site
 
 on:
   push:
